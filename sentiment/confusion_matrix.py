@@ -16,8 +16,7 @@ corr_stem_target = target.corr(stem)
 print(corr_lemm_target)
 print(corr_stem_target)
 
-'''
-#Confusion matrix for lemmatized
+#Confusion matrix for lemmatized score
 cm_lem = confusion_matrix(target, lemmatized)
 
 plt.figure(figsize=(8, 6))
@@ -26,14 +25,12 @@ plt.ylabel('Manual score')
 plt.xlabel('Lemmatized score')
 plt.title('Confusion Matrix for Lemmatized and Target scores')
 plt.show()
-'''
 
-
-#Confusion matrix for stemming
-cm_stem = confusion_matrix(target, lemmatized)
+#Confusion matrix for stemming score
+cm_stem = confusion_matrix(target, stem)
 
 plt.figure(figsize=(8, 6))
-sns.heatmap(cm_stem, annot=True, fmt="d", cmap='Blues', xticklabels=[-1,0,1], yticklabels=[-1,0,1])
+sns.heatmap(cm_stem, annot=True, fmt="d", cmap='Blues', xticklabels=df_sentiment['label'].unique(), yticklabels=df_sentiment['label'].unique())
 plt.ylabel('Target score')
 plt.xlabel('Predicted score')
 plt.title('Confusion Matrix for Stemming and Target scores')
