@@ -4,7 +4,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-file_path = r"C:\\Users\\Ritus\\OneDrive\\Dokumentumok\\7.félév\\komplex\\labeled_to_confusion.csv"
+file_path = r"C:\\Users\\Ritus\\OneDrive\\Dokumentumok\\7.félév\\komplex\\labeled_350.csv"
 df_sentiment = pd.read_csv(file_path)
 
 print(df_sentiment.head())
@@ -20,7 +20,7 @@ print(corr_lemm_target)
 print(corr_stem_target)
 
 '''
-#Confsuin matrix for lemmatized
+#Confusion matrix for lemmatized
 cm_lem = confusion_matrix(target, lemmatized)
 
 plt.figure(figsize=(8, 6))
@@ -32,7 +32,7 @@ plt.show()
 '''
 
 
-#Confsuin matrix for stemming
+#Confusion matrix for stemming
 cm_stem = confusion_matrix(target, lemmatized)
 
 plt.figure(figsize=(8, 6))
