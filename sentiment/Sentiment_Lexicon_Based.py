@@ -2,7 +2,6 @@ import pandas as pd
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords, wordnet
-#from nltk.sentiment import SentimentIntensityAnalyzer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from nltk.stem import WordNetLemmatizer, PorterStemmer
 import string
@@ -23,6 +22,7 @@ stemmer = PorterStemmer()
 #FUNCTIONS
 #-------------------
 
+# Part of speech tagging
 def get_wordnet_pos(word):
     tag = nltk.pos_tag([word])[0][1][0].upper()
     tag_dict = { 
@@ -32,6 +32,7 @@ def get_wordnet_pos(word):
                 "R" : wordnet.ADV}
     return tag_dict.get(tag, wordnet.NOUN)
 
+# Lemmatizing Function
 def lemmatize(text):
     text = str(text)
     if text is not None:
@@ -61,32 +62,35 @@ def stem(text):
         processed_token = ' '
     return processed_token
 
-
+# Get the compound sentiment score
 def getCompound(text):
     scores = analyzer.polarity_scores(text)
     compound_score = scores['compound']
     return compound_score
 
+#-------------------
+#MAIN PROCESS
+#-------------------
 
 df['lemmatized'] = df['differences'].apply(lemmatize)
 df['stemming'] = df['differences'].apply(stem)
 df['sentiment_score_lem'] = df['lemmatized'].apply(getCompound)
 df['sentiment_score_stem'] = df['stemming'].apply(getCompound)
 
+# Normalizing the sentiment scores to  [-1, 0, 1]
 def score_to_rating(value):
     if value > 0.2:
-        return 3
-    if value <= 0.2 and value >= -0.2:
-        return 2
-    else:
         return 1
+    if value <= 0.2 and value >= -0.2:
+        return 0
+    else:
+        return -1
     
 df['lemmatized_norm'] = df['sentiment_score_lem'].apply(lambda x:score_to_rating(x))
 df['stem_norm'] = df['sentiment_score_stem'].apply(lambda x:score_to_rating(x))
 
-
-print(df.sample(5))
-df.to_csv(r'sentiment_usertalk_enwiki_history3_v3.csv', encoding='utf-8')
+save_file = r'sentiment_usertalk_enwiki_history3_v3.csv'
+df.to_csv(save_file, encoding='utf-8')
 
 
 
