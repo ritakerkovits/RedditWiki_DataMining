@@ -7,9 +7,6 @@ import matplotlib.pyplot as plt
 file_path = r"C:\\Users\\Ritus\\OneDrive\\Dokumentumok\\7.félév\\komplex\\labeled_350.csv"
 df_sentiment = pd.read_csv(file_path)
 
-print(df_sentiment.head())
-
-
 target = df_sentiment['label']
 lemmatized = df_sentiment['lemmatized_norm']
 stem = df_sentiment['stem_norm']
