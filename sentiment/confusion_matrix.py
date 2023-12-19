@@ -20,6 +20,7 @@ print(corr_lemm_target)
 print(corr_stem_target)
 
 '''
+#Confsuin matrix for lemmatized
 cm_lem = confusion_matrix(target, lemmatized)
 
 plt.figure(figsize=(8, 6))
@@ -29,6 +30,9 @@ plt.xlabel('Lemmatized score')
 plt.title('Confusion Matrix for Lemmatized and Target scores')
 plt.show()
 '''
+
+
+#Confsuin matrix for stemming
 cm_stem = confusion_matrix(target, lemmatized)
 
 plt.figure(figsize=(8, 6))
